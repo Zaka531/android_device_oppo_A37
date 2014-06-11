@@ -317,6 +317,7 @@ PRODUCT_PACKAGES += \
     hostapd_default.conf \
     hostapd \
     libwpa_client \
+    libwcnss_qmi \
     wcnss_service \
     wificond \
     wifilogd \
