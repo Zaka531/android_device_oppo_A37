@@ -147,3 +147,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
 
 $(call inherit-product, vendor/oppo/A37/A37-vendor.mk)
+
+# Inherit from oppo-common
+$(call inherit-product, device/oppo/common/common.mk)
