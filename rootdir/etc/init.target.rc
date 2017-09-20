@@ -59,7 +59,7 @@ on init
     chown system system /sys/class/power_supply/battery/charging_enabled
     chmod 0664 /sys/class/power_supply/battery/charging_enabled
 
-service vm_bms /system/vendor/bin/vm_bms
+service vendor.vm_bms /system/vendor/bin/vm_bms
     class main
     user root
     group root wakelock
@@ -86,11 +86,11 @@ on charger
    chmod 0664 /sys/class/power_supply/bms/current_now
    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
    load_system_props
-   start vm_bms
+   start vendor.vm_bms
     
 on init
 
-service imsqmidaemon /system/vendor/bin/imsqmidaemon
+service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
@@ -98,7 +98,7 @@ service imsqmidaemon /system/vendor/bin/imsqmidaemon
     writepid /dev/cpuset/system-background/tasks
 
 
-service imsdatadaemon /system/vendor/bin/imsdatadaemon
+service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
@@ -108,4 +108,4 @@ service imsdatadaemon /system/vendor/bin/imsdatadaemon
 
 
 on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon    
+    start vendor.imsdatadaemon    
