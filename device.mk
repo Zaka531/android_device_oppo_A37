@@ -69,7 +69,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Screen density
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=280 \
     persist.graphics.vulkan.disable=true
 
 # Disable buffer age
