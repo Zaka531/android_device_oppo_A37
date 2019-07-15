@@ -73,9 +73,6 @@ TARGET_KERNEL_CONFIG := lineageos_a37f_defconfig
 # LMKD stats logging
 TARGET_LMKD_STATS_LOG := true
 
-# Offline Charging
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
