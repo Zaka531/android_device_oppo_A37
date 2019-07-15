@@ -10,6 +10,9 @@ persist.camera.hal.debug.mask=0
 persist.camera.disable.spzoom=1
 persist.camera.disable.anight=1
 
+# Charger
+ro.charger.enable_suspend=true
+
 #Display
 ro.surface_flinger.vsync_event_phase_offset_ns=4000000
 ro.surface_flinger.vsync_sf_event_phase_offset_ns=8000000

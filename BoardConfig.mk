@@ -75,7 +75,6 @@ TARGET_LMKD_STATS_LOG := true
 
 # Offline Charging
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
