@@ -119,6 +119,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
+
 # RIL
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
@@ -148,5 +152,3 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, vendor/oppo/A37/A37-vendor.mk)
 
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)

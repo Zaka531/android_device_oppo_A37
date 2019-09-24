@@ -20,9 +20,6 @@ FORCE_32_BIT := true
 # Inherit from msm8916-common
 -include device/cyanogen/msm8916-common/BoardConfigCommon.mk
 
-# inherit from Oppo common
--include device/oppo/common/BoardConfigCommon.mk
-
 # Assertions
 TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 
@@ -92,6 +89,10 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
 
 # GPS
 TARGET_NO_RPC := true
+
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_oppo
+TARGET_RELEASETOOLS_EXTENSIONS := device/oppo/common
 
 # Shim
 TARGET_LD_SHIM_LIBS += \
