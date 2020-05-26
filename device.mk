@@ -88,6 +88,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
 
+# TimeKeep
+PRODUCT_PACKAGES += \
+    timekeep \
+    TimeKeep
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.primary.msm8916 \
