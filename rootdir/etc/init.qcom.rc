@@ -206,17 +206,14 @@ service charger /system/bin/charger
 
 
 #start camera server as daemon
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service vendor.qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera gps system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
 
-on property:init.svc.media=restarting
-    restart qcamerasvr
-
-on property:init.svc.servicemanager=restarting
-    restart qcamerasvr
+on property:init.svc.vendor.qcamerasvr=running
+    restart media
 
 service qseecomd /system/vendor/bin/qseecomd
    class core
@@ -261,4 +258,4 @@ on property:init.svc.surfaceflinger=restarting
 
 # Start it again on boot, just being double sure.
 on property:sys.boot_completed=1
-    restart cameraserver
+    restart vendor.qcamerasvr
