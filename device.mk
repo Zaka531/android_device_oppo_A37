@@ -339,10 +339,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
-# First api level, device has been commercially launched
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=19
-
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0 \
