@@ -171,7 +171,7 @@ TARGET_LD_SHIM_LIBS := \
 
 # SEpolicy
 BOARD_SEPOLICY_DIRS += \
-    $(PLATFORM_PATH)/sepolicy_tmp
+    $(PLATFORM_PATH)/sepolicy
 
 # Wi-Fi
 BOARD_HAS_QCOM_WLAN := true
