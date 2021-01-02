@@ -154,7 +154,7 @@
          some range of adjustment to dim the screen further than usual in very
          dark rooms. The contents of the screen must still be clearly visible
          in darkness (although they may not be visible in a bright room). -->
-    <integer name="config_screenBrightnessDark">10</integer>
+    <integer name="config_screenBrightnessDark">1</integer>
 
     <!-- Flag indicating whether we should enable the automatic brightness in Settings.
                   config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
@@ -177,14 +177,13 @@
          backlight values for LUX levels between these control points.
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>15</item>
+        <item>10</item>
         <item>30</item>
+        <item>60</item>
         <item>100</item>
-        <item>200</item>
-        <item>400</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>3000</item>
+        <item>150</item>
+        <item>210</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -193,15 +192,14 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>15</item>   <!-- 0-10 -->
-        <item>46</item>   <!-- 10-30 -->
-        <item>126</item>   <!-- 30-100 -->
-        <item>148</item>   <!-- 100-200 -->
-        <item>148</item>   <!-- 200-400 -->
-        <item>168</item>   <!-- 400-1000 -->
-        <item>200</item>  <!-- 1000-2000 -->
-        <item>226</item>  <!-- 2000-3000 -->
-        <item>255</item>  <!-- 3000+ -->
+        <item>10</item>
+        <item>20</item>
+        <item>40</item>
+        <item>70</item>
+        <item>110</item>
+        <item>160</item>
+        <item>200</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Control the behavior when the user long presses the home button.
@@ -241,7 +239,7 @@
     <!-- Screen brightness used to dim the screen while dozing in a very low power state.
           May be less than the minimum allowed brightness setting
           that can be set by the user. -->
-    <integer name="config_screenBrightnessDoze">7</integer>
+    <integer name="config_screenBrightnessDoze">17</integer>
 
    <!-- Enable doze mode
          ComponentName of a dream to show whenever the system would otherwise have gone to sleep. -->
