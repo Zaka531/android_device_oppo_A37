@@ -99,8 +99,34 @@ void set_device_dalvik_properties()
   property_set("ro.vendor.qti.sys.fw.bg_apps_limit", is2GB() ? "17" : "9");
 }
 
+void set_device_model_properties()
+{
+    char const *prjversion_file = "/proc/oppoVersion/prjVersion";
+    std::string prjversion;
+
+    if (ReadFileToString(prjversion_file, &prjversion)) {
+        /*
+         * Read Oppo Project ID file to get the device model
+         * in order to set device infomation.
+         *
+         * 15399 -> A37f
+         * 15392/15396 -> A37fw
+         */
+        if (Trim(prjversion) == "15399") {
+            property_set("ro.product.device", "A37f");
+            property_set("ro.product.model", "A37f");
+            property_set("ro.product.name", "A37f");
+        } else if (Trim(prjversion) == "15392" || Trim(prjversion) == "15396") {
+            property_set("ro.product.device", "A37fw");
+            property_set("ro.product.model", "A37fw");
+            property_set("ro.product.name", "A37fw");
+        }
+    }
+}
+
 void vendor_load_properties()
 {
+    set_device_model_properties();
     set_device_dalvik_properties();
     init_alarm_boot_properties();
 }
