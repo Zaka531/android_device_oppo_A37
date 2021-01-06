@@ -267,11 +267,32 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.target.rc \
     init.qcom.rc \
+    init.qcom.ims.rc \
     init.qcom.power.rc \
     init.qcom.ssr.rc \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
+
+# VoLTE
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.lte.volte_call_capable=true \
+    persist.ims.enableADBLogs=1 \
+    persist.ims.enableDebugLogs=1 \
+    persist.radio.calls.on.ims=true \
+    persist.radio.csvt.enabled=false \
+    persist.radio.jbims=1 \
+    persist.radio.ROTATION_ENABLE=1 \
+    persist.radio.VT_ENABLE=1 \
+    persist.radio.VT_HYBRID_ENABLE=1 \
+    persist.radio.VT_USE_MDM_TIME=0 \
+    persist.volte_enabled_by_hw=1 \
+    persist.dbg.volte_avail_ovr=1
+
+# VoLTE Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml
 
 # For config.fs
 PRODUCT_PACKAGES += \
