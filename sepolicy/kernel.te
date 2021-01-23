@@ -1,0 +1,2 @@
+# The kernel should not be accessing files owned by other users. (system/sepolicy@3927086). Disable auditing.
+dontaudit kernel self:capability { dac_override dac_read_search };
