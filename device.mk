@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Inherit properties.mk
+$(call inherit-product, device/oppo/A37/properties.mk)
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
@@ -41,48 +44,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type=c2d \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
-    ro.surface_flinger.vsync_event_phase_offset_ns=5000000 \
-    ro.surface_flinger.vsync_sf_event_phase_offset_ns=7500000 \
-    debug.mdpcomp.idletime=600 \
-    persist.hwc.mdpcomp.enable=true \
-    persist.hwc.ptor.enable=true \
-    pm.dexopt.shared=quicken \
-    pm.dexopt.downgrade_after_inactive_days=10 \
-    debug.enable.sglscale=1 \
-    debug.sf.hw=1 \
-    debug.hwui.renderer=opengl \
-    debug.egl.hw=1 \
-    debug.sf.disable_hwc=0 \
-    debug.sf.recomputecrop=0 \
-    debug.sf.disable_backpressure=1 \
-    debug.sf.latch_unsignaled=1 \
-    debug.cpurend.vsync=false \
-    persist.hwc.mdpcomp.enable=true \
-    persist.hwc.ptor.enable=true \
-    debug.sf.gpu_comp_tiling=1 \
-    debug.performance.tuning=1 \
-    video.accelerate.hw=1
-
-# Screen density
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.graphics.vulkan.disable=true
-
-# Disable buffer age
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.hwui.use_buffer_age=false
-
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.2-service.clearkey
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608
 
 # Trust HAL
 PRODUCT_PACKAGES += \
@@ -136,32 +102,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml
 
-
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.audio.sdk.fluencetype=none \
-    persist.vendor.audio.fluence.voicecall=true \
-    persist.vendor.audio.fluence.voicerec=true \
-    persist.vendor.audio.fluence.speaker=false \
-    vendor.audio.offload_wakelock=false \
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=1
-
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio.deep_buffer.media=true \
-    audio.offload.min.duration.secs=30 \
-    audio.offload.video=true \
-    ro.af.client_heap_size_kbyte=7168 \
-    ro.audio.flinger_standbytime_ms=300 \
-    vendor.voice.path.for.pcm.voip=true \
-    vendor.audio.av.streaming.offload.enable=true \
-    vendor.audio.offload.buffer.size.kb=64 \
-    ro.config.vc_call_vol_steps=7 \
-    ro.config.media_vol_steps=25 \
-    persist.bluetooth.bluetooth_audio_hal.disabled=true \
-    vendor.audio.offload.gapless.enabled=true
-
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
@@ -198,11 +138,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml
 
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.cpp.duplication=false \
-    persist.camera.hal.debug.mask=0
-
 # vendor_init
 PRODUCT_PACKAGES += \
     libinit_msm8916
@@ -235,14 +170,6 @@ PRODUCT_COPY_FILES += \
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=smd \
-    ro.bluetooth.dun=true \
-    ro.bluetooth.hfp.ver=1.7 \
-    ro.bluetooth.sap=true \
-    ro.qualcomm.bt.hci_transport=smd
-
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
@@ -260,10 +187,6 @@ PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
 
-# Google Assistant
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opa.eligible_device=true
-
 # Init scripts
 PRODUCT_PACKAGES += \
     fstab.qcom \
@@ -275,21 +198,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
-
-# VoLTE
-PRODUCT_PROPERTY_OVERRIDES += \
-    net.lte.volte_call_capable=true \
-    persist.ims.enableADBLogs=1 \
-    persist.ims.enableDebugLogs=1 \
-    persist.radio.calls.on.ims=true \
-    persist.radio.csvt.enabled=false \
-    persist.radio.jbims=1 \
-    persist.radio.ROTATION_ENABLE=1 \
-    persist.radio.VT_ENABLE=1 \
-    persist.radio.VT_HYBRID_ENABLE=1 \
-    persist.radio.VT_USE_MDM_TIME=0 \
-    persist.volte_enabled_by_hw=1 \
-    persist.dbg.volte_avail_ovr=1
 
 # VoLTE Permissions
 PRODUCT_COPY_FILES += \
@@ -346,28 +254,9 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.max_starting_bg=8
-
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so
-
-# IOP
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.iop.enable_uxe=0 \
-    vendor.iop.enable_prefetch_ofr=0
-
 # IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
-
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.qmi.adb_logmask=0 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.add_power_save=1 \
-    ro.telephony.call_ring.multiple=false
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -405,15 +294,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.A37
 
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=1 \
-    debug.stagefright.ccodec=0 \
-    debug.stagefright.omx_default_rank.sw-audio=1 \
-    debug.stagefright.omx_default_rank=0 \
-    vendor.mediacodec.binder.size=6 \
-    vidc.enc.narrow.searchrange=1
-
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/fpc1020.kl:system/usr/keylayout/fpc1020.kl \
@@ -422,18 +302,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/synaptics_dsx.kl:system/usr/keylayout/synaptics_dsx.kl \
     $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
 
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.sdcardfs=true
-
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
-
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
@@ -468,40 +340,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heapgrowthlimit=128m \
-    dalvik.vm.heapsize=256m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=512k \
-    dalvik.vm.heapmaxfree=8m \
-    dalvik.vm.zygotemaxfailedboots=5 \
-    dalvik.vm.foreground-heap-growth-multiplier=2.0 \
-    dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.dex2oat-threads=2 \
-    ro.vendor.qti.am.reschedule_service=true \
-    sys.use_fifo_ui=1
-
 # TextClassifier
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
-
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.qmi.adb_logmask=0 \
-    persist.data.target=dpm3 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    ro.telephony.call_ring.multiple=false \
-    ro.use_data_netmgrd=true \
-    persist.radio.multisim.config=dsds \
-    persist.radio.custom_ecc=1 \
-    persist.radio.ecc_hard_1=112,911,110,122,119,120,000,118 \
-    persist.radio.ecc_hard_count=1 \
-    rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
-    ril.subscription.types=NV,RUIM \
-    ro.telephony.default_network=9,1 \
-    persist.data.netmgrd.qos.enable=false
 
 # RIL
 PRODUCT_COPY_FILES += \
@@ -530,17 +371,5 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
-
-# USB ID
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.usb.id.midi=90BA \
-    ro.usb.id.midi_adb=90BB \
-    ro.usb.id.mtp=2281 \
-    ro.usb.id.mtp_adb=2282 \
-    ro.usb.id.ptp=2284 \
-    ro.usb.id.ptp_adb=2283 \
-    ro.usb.id.ums=2286 \
-    ro.usb.id.ums_adb=2285 \
-    ro.usb.vid=2970
 
 $(call inherit-product, vendor/oppo/A37/A37-vendor.mk)
