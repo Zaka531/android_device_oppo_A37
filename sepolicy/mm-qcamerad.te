@@ -1,0 +1,2 @@
+allow mm-qcamerad proc:file { open read };
+allow mm-qcamerad vendor_file:file execmod;
