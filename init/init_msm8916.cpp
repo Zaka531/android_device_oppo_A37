@@ -81,33 +81,64 @@ static void init_alarm_boot_properties()
     }
 }
 
-void set_device_model_properties()
+bool is3GB()
+{
+    /*
+     * Memtotal example
+     * A37fs:MemTotal:        3000776 kB
+     * A37f: MemTotal:        1932040 kB
+     */
+
+    struct sysinfo sys;
+    sysinfo(&sys);
+    return sys.totalram > 2500000000ull;
+}
+
+void set_device_properties()
 {
     char const *prjversion_file = "/proc/oppoVersion/prjVersion";
     std::string prjversion;
+
+    // fingerprint (from stock /init.prop.self_adaptive.sh)
+    std::string fingerprint_A37fs_fw = "OPPO/A37fw/A37fs:5.1.1/LMY47V/1455690779:user/release-keys";
+    std::string fingerprint_A37fs_f = "OPPO/A37f/A37fs:5.1.1/LMY47V/1464410042:user/release-keys";
+    std::string fingerprint_A37f_fw = "OPPO/A37fw/A37f:5.1.1/LMY47V/1519717163:user/release-keys";
+    std::string fingerprint_A37f_f = "OPPO/A37f/A37f:5.1.1/LMY47V/1519717078:user/release-keys";
+
+    /*
+     * RAM:
+     * A37f: 2GB
+     * A37fs: 3GB
+     */
+    property_set("ro.product.device", is3GB() ? "A37fs" : "A37f");
 
     if (ReadFileToString(prjversion_file, &prjversion)) {
         /*
          * Read Oppo Project ID file to get the device model
          * in order to set device infomation.
          *
+         * 15392 -> A37fw
+         * 15396 -> A37fw (Indonesia 3G)
          * 15399 -> A37f
-         * 15392/15396 -> A37fw
          */
         if (Trim(prjversion) == "15399") {
-            property_set("ro.product.device", "A37f");
             property_set("ro.product.model", "A37f");
             property_set("ro.product.name", "A37f");
+            property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_f : fingerprint_A37f_f);
         } else if (Trim(prjversion) == "15392" || Trim(prjversion) == "15396") {
-            property_set("ro.product.device", "A37fw");
             property_set("ro.product.model", "A37fw");
             property_set("ro.product.name", "A37fw");
+            property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_fw : fingerprint_A37f_fw);
+            // 15396 is 3G
+            if (Trim(prjversion) == "15396") {
+                property_set("ro.telephony.default_network", "0,1"); // from stock /system/build_15396.prop
+            }
         }
     }
 }
 
 void vendor_load_properties()
 {
-    set_device_model_properties();
+    set_device_properties();
     init_alarm_boot_properties();
 }
