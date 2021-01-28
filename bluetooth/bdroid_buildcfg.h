@@ -31,7 +31,7 @@ int property_get(const char *key, char *value, const char *default_value);
 #include "osi/include/osi.h"
 
 typedef struct {
-    const char *product_device;
+    const char *product_name;
     const char *product_model;
 } device_t;
 
@@ -42,13 +42,13 @@ static const device_t devices[] = {
 
 static inline const char *BtmGetDefaultName()
 {
-    char product_device[92];
-    property_get("ro.product.device", product_device, "");
+    char product_name[92];
+    property_get("ro.product.name", product_name, "");
 
     for (unsigned int i = 0; i < ARRAY_SIZE(devices); i++) {
         device_t device = devices[i];
 
-        if (strcmp(device.product_device, product_device) == 0) {
+        if (strcmp(device.product_name, product_name) == 0) {
             return device.product_model;
         }
     }
