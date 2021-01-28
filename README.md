@@ -1,4 +1,4 @@
-# Device configuration for Oppo A37(A37f, A37fw, A37m)
+# Device configuration for Oppo A37(A37f, A37fw, A37fs)
 
 #################################################
 ==================================================
