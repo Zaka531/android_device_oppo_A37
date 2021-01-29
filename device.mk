@@ -59,6 +59,10 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep
 
+# Thermal
+PRODUCT_COPY_FILES += \
+    device/oppo/A37/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.primary.msm8916 \
