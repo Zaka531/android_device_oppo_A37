@@ -124,10 +124,12 @@ void set_device_properties()
         if (Trim(prjversion) == "15399") {
             property_set("ro.product.model", "A37f");
             property_set("ro.product.name", "A37f");
+            property_set("ro.build.product", "A37f");
             property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_f : fingerprint_A37f_f);
         } else if (Trim(prjversion) == "15392" || Trim(prjversion) == "15396") {
             property_set("ro.product.model", "A37fw");
             property_set("ro.product.name", "A37fw");
+            property_set("ro.build.product", "A37fw");
             property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_fw : fingerprint_A37f_fw);
             // 15396 is 3G
             if (Trim(prjversion) == "15396") {
