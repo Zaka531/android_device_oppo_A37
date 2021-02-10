@@ -120,7 +120,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
     persist.radio.add_power_save=1 \
     ro.telephony.call_ring.multiple=false \
-    persist.data.target=dpm3 \
     ro.use_data_netmgrd=true \
     persist.radio.multisim.config=dsds \
     persist.radio.custom_ecc=1 \
