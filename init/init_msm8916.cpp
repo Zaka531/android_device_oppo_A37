@@ -94,6 +94,24 @@ bool is3GB()
     return sys.totalram > 2500000000ull;
 }
 
+int ro_product_prop_set(std::string key, std::string value)
+{
+    property_set("ro.product." + key, value);
+    property_set("ro.product.system." + key, value);
+    property_set("ro.product.vendor." + key, value);
+
+    return 0;
+}
+
+int ro_build_prop_set(std::string key, std::string value)
+{
+    property_set("ro.build." + key, value);
+    property_set("ro.system.build." + key, value);
+    property_set("ro.vendor.build." + key, value);
+
+    return 0;
+}
+
 void set_device_properties()
 {
     char const *prjversion_file = "/proc/oppoVersion/prjVersion";
@@ -110,7 +128,7 @@ void set_device_properties()
      * A37f: 2GB
      * A37fs: 3GB
      */
-    property_set("ro.product.device", is3GB() ? "A37fs" : "A37f");
+    ro_product_prop_set("device", is3GB() ? "A37fs" : "A37f");
 
     if (ReadFileToString(prjversion_file, &prjversion)) {
         /*
@@ -122,13 +140,13 @@ void set_device_properties()
          * 15399 -> A37f
          */
         if (Trim(prjversion) == "15399") {
-            property_set("ro.product.model", "A37f");
-            property_set("ro.product.name", "A37f");
-            property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_f : fingerprint_A37f_f);
+            ro_product_prop_set("model", "A37f");
+            ro_product_prop_set("name", "A37f");
+            ro_build_prop_set("fingerprint", is3GB() ? fingerprint_A37fs_f : fingerprint_A37f_f);
         } else if (Trim(prjversion) == "15392" || Trim(prjversion) == "15396") {
-            property_set("ro.product.model", "A37fw");
-            property_set("ro.product.name", "A37fw");
-            property_set("ro.build.fingerprint", is3GB() ? fingerprint_A37fs_fw : fingerprint_A37f_fw);
+            ro_product_prop_set("model", "A37fw");
+            ro_product_prop_set("name", "A37fw");
+            ro_build_prop_set("fingerprint", is3GB() ? fingerprint_A37fs_fw : fingerprint_A37f_fw);
             // 15396 is 3G
             if (Trim(prjversion) == "15396") {
                 property_set("ro.telephony.default_network", "0,1"); // from stock /system/build_15396.prop

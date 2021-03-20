@@ -35,8 +35,7 @@ PRODUCT_MANUFACTURER := OPPO
 
 # Build fingerprint
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="msm8916_64-user 5.1.1 LMY47V eng.root.20190711.032745 release-keys" \
-    TARGET_DEVICE="A37"
+    PRIVATE_BUILD_DESC="msm8916_64-user 5.1.1 LMY47V eng.root.20190711.032745 release-keys"
 
 # GMS
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
