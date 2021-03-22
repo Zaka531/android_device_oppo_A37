@@ -58,5 +58,6 @@ static inline const char *BtmGetDefaultName()
 }
 
 #define BTM_DEF_LOCAL_NAME   BtmGetDefaultName()
+#define BLUETOOTH_QTI_SW TRUE
 #define BLE_VND_INCLUDED  FALSE
 #endif
