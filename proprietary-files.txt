@@ -405,9 +405,12 @@ vendor/lib64/libxml.so|00c701f4003f037f5c6e96c4c97f172e18b96038
 vendor/lib/libmdmdetect.so|195a7398c537c6ddc43f7c4e41fd7e6f28fb269f
 
 # Radio - IMS - from bullhead
--vendor/app/ims/ims.apk
 vendor/lib64/libimscamera_jni.so
 vendor/lib64/libimsmedia_jni.so
+
+# Radio IMS - from marlin
+-vendor/app/ims/ims.apk|27bbfdc6675e0b4c77504a8cf60824f1f234294a
+-vendor/app/imssettings/imssettings.apk|0f3d622a59038cfc881a26f541f5cc7a0913b603
 
 # Radio - IMS
 bin/imsdatadaemon:vendor/bin/imsdatadaemon
