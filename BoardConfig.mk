@@ -36,10 +36,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_GLOBAL_CFLAGS += -DCONFIG_OPPO_CAMERA_51
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /system/bin/cameraserver=22 \
-    /system/bin/mediaserver=22 \
-    /vendor/bin/mm-qcamera-daemon=22
     
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
