@@ -228,9 +228,6 @@ vendor/lib64/libgsl.so|300fbd81fa22ef7e1753463ae5476c91e61451de
 vendor/lib64/libllvm-glnext.so|ce01651b39af6a5a24af0a069a06662bc47db344
 vendor/lib64/libllvm-qcom.so|a68ba958795cadeb28c91b415c0efb674b93e935
 vendor/lib64/libOpenCL.so|6b2941f790c83ddadc5c01e5ab8f03594bce45fb
-vendor/lib64/librs_adreno.so|a438549eea216ed0222d690287fc61134e6c4308
-vendor/lib64/librs_adreno_sha1.so|1ba4d92c443805e643081e0d8266966c9e4a3196
-vendor/lib64/libRSDriver_adreno.so|9b9dfeccb303225056bd46c0eba9d622ca7bed6a
 vendor/lib64/libsc-a2xx.so|2f86e6577d2725ffbb5eaedd06ad815681b968b0
 vendor/lib64/libsc-a3xx.so|ca681ed7ec0339df1701ebe5a8fecbcedc93becb
 vendor/lib64/libscale.so|6b416fceb3d248ee46c74c24da85844cb98cf210
@@ -259,9 +256,6 @@ vendor/lib/libgsl.so|5fcaa1e5a12e03b48c0115012803565edea1dd15
 vendor/lib/libllvm-glnext.so|1ce6c475922d6cf1226745cd2abb0bc259a4eef2
 vendor/lib/libllvm-qcom.so|6f0a37026cda4879bec0e7ca62f8cdb58a47532c
 vendor/lib/libOpenCL.so|ad85745efd83eb6d70dd205317171d7a830efba4
-vendor/lib/librs_adreno.so|05b88edb55f2a606a8daf7eb437a2178ea9876d3
-vendor/lib/librs_adreno_sha1.so|012a6039e467b211d1aa481cd73ef70abfe6a382
-vendor/lib/libRSDriver_adreno.so|927768956088f4c1b74c4b072f5d5b824e6a5956
 vendor/lib/libsc-a2xx.so|7b00e18760e8698fb9d4552b1ee92b18c7625e12
 vendor/lib/libsc-a3xx.so|763b32c8c516f5507d37dc44762d0548404a3850
 vendor/lib/libscale.so|80477499a5c44d5f81a426cb3122b31a9dc837a6
