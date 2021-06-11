@@ -162,14 +162,14 @@ service rmt_storage /system/vendor/bin/rmt_storage
     group wakelock
     writepid /dev/cpuset/system-background/tasks
 
-service imsqmidaemon /system/vendor/bin/imsqmidaemon
+service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio net_raw log diag oem_2950
     writepid /dev/cpuset/system-background/tasks
 
-service imsdatadaemon /system/vendor/bin/imsdatadaemon
+service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
@@ -178,7 +178,7 @@ service imsdatadaemon /system/vendor/bin/imsdatadaemon
     disabled
 
 on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon
+    start vendor.imsdatadaemon
 
 # FM
 on property:vendor.hw.fm.init=0
