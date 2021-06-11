@@ -103,10 +103,12 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    libbt-vendor \
+    init.qcom.bt.sh \
+    libbt-vendor
 
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v28/arm/arch-arm-armv7-a-neon/shared/vndk-sp/libbase.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbase-v28.so
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service
 
 # Camera
 PRODUCT_PACKAGES += \
