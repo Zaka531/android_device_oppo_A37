@@ -20,6 +20,7 @@ LOCAL_MODULE := libwcnss_qmi
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := wcnss_qmi.c
 LOCAL_CFLAGS += -Wall -Wextra -Werror
+LOCAL_VENDOR_MODULE := true
 LOCAL_SHARED_LIBRARIES := libc libcutils libutils liblog 
 # qmi_client_init, qmi_client_send_msg_sync, qmi_client_release
 LOCAL_SHARED_LIBRARIES += libqcci_legacy
