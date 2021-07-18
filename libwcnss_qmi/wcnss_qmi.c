@@ -28,13 +28,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define LOG_TAG "libwcnss_qmi"
 #include <cutils/log.h>
-#include <cutils/properties.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
 #include "missing-qmi-client-api.h"
 
 #define SUCCESS 0
