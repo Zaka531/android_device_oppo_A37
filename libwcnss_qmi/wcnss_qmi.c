@@ -28,6 +28,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define LOG_TAG "libwcnss_qmi"
 #include <cutils/log.h>
+#include <dlfcn.h>
 #include <string.h>
 #include "missing-qmi-client-api.h"
 
@@ -41,6 +42,14 @@ static void *dms_qmi_client;
 static int qmi_handle;
 static int dms_init_done = FAILED;
 
+void *libqcci_legacy_handle;
+void *libqmiservices_handle;
+void *libqmi_handle;
+
+#define QCCI_LEGACY_LIB "libqcci_legacy.so"
+#define QMISERVICES_LIB "libqmiservices.so"
+#define QMI_LIB "libqmi.so"
+
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*(a)))
 
 int wcnss_init_qmi()
@@ -50,6 +59,60 @@ int wcnss_init_qmi()
 	const char *tries[] = { QMI_PORT_RMNET_0, QMI_PORT_RMNET_1 };
 	int rc = SUCCESS;
 	size_t i;
+
+	libqcci_legacy_handle = dlopen(QCCI_LEGACY_LIB, RTLD_NOW);
+	if (!libqcci_legacy_handle) {
+		ALOGE("%s: Failed to open %s: %s", __func__, QCCI_LEGACY_LIB, dlerror());
+		return FAILED;
+	}
+
+	qmi_client_init = dlsym(libqcci_legacy_handle, "qmi_client_init");
+	if (!qmi_client_init) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "qmi_client_init", dlerror());
+		return FAILED;
+	}
+
+	qmi_client_send_msg_sync = dlsym(libqcci_legacy_handle, "qmi_client_send_msg_sync");
+	if (!qmi_client_send_msg_sync) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "qmi_client_send_msg_sync", dlerror());
+		return FAILED;
+	}
+
+	qmi_client_release = dlsym(libqcci_legacy_handle, "qmi_client_release");
+	if (!qmi_client_release) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "qmi_client_release", dlerror());
+		return FAILED;
+	}
+
+	libqmiservices_handle = dlopen(QMISERVICES_LIB, RTLD_NOW);
+	if (!libqmiservices_handle) {
+		ALOGE("%s: Failed to open %s: %s", __func__, QMISERVICES_LIB, dlerror());
+		return FAILED;
+	}
+
+	dms_get_service_object_internal_v01 = dlsym(libqmiservices_handle, "dms_get_service_object_internal_v01");
+	if (!dms_get_service_object_internal_v01) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "dms_get_service_object_internal_v01", dlerror());
+		return FAILED;
+	}
+
+	libqmi_handle = dlopen(QMI_LIB, RTLD_NOW);
+	if (!libqmi_handle) {
+		ALOGE("%s: Failed to open %s: %s", __func__, QMI_LIB, dlerror());
+		return FAILED;
+	}
+
+	qmi_init = dlsym(libqmi_handle, "qmi_init");
+	if (!qmi_init) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "qmi_init", dlerror());
+		return FAILED;
+	}
+
+	qmi_release = dlsym(libqmi_handle, "qmi_release");
+	if (!qmi_release) {
+		ALOGE("%s: Failed to resolve function: %s: %s", __func__, "qmi_release", dlerror());
+		return FAILED;
+	}
 
 	ALOGE("%s: Initialize wcnss QMI Interface", __func__);
 
