@@ -1,2 +1,0 @@
-allow init sysfs_graphics:file { open setattr write };
-binder_call(init, system_server);

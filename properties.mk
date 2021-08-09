@@ -5,35 +5,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.voicerec=true \
     persist.vendor.audio.fluence.speaker=false \
     vendor.audio.offload_wakelock=false \
-    audio.deep_buffer.media=true \
-    audio.offload.min.duration.secs=30 \
-    audio.offload.video=true \
     ro.af.client_heap_size_kbyte=7168 \
-    ro.audio.flinger_standbytime_ms=300 \
-    vendor.voice.path.for.pcm.voip=true \
-    vendor.audio.av.streaming.offload.enable=true \
-    vendor.audio.offload.buffer.size.kb=64 \
-    ro.config.vc_call_vol_steps=7 \
-    ro.config.media_vol_steps=25 \
-    persist.bluetooth.bluetooth_audio_hal.disabled=true \
-    vendor.audio.offload.gapless.enabled=true
-
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=smd \
-    ro.bluetooth.dun=true \
-    ro.bluetooth.hfp.ver=1.7 \
-    ro.bluetooth.sap=true \
-    ro.qualcomm.bt.hci_transport=smd
+    ro.audio.flinger_standbytime_ms=300
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.cpp.duplication=false \
     persist.camera.hal.debug.mask=0
-
-# Disable buffer age
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.hwui.use_buffer_age=false
 
 # Dalvik heap
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -49,13 +27,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap=false \
     dalvik.vm.dex2oat-threads=2
 
-# DRM
-PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=1
-
 # Graphics/Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type=c2d \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
     ro.surface_flinger.vsync_event_phase_offset_ns=5000000 \
     ro.surface_flinger.vsync_sf_event_phase_offset_ns=7500000 \
@@ -98,14 +71,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.am.reschedule_service=true \
     sys.use_fifo_ui=1
 
-# OpenGL ES
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608
-
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so
-
 # Screen mirroring
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=1
@@ -116,10 +81,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Telephony
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.qmi.adb_logmask=0 \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.add_power_save=1 \
-    ro.telephony.call_ring.multiple=false \
     ro.use_data_netmgrd=true \
     persist.radio.multisim.config=dsds \
     persist.radio.custom_ecc=1 \
@@ -148,7 +109,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Vulkan
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.graphics.vulkan.disable=true
-
-# WLAN
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
