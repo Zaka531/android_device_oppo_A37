@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+BOARD_VENDOR := oppo
+
 DEVICE_PATH := device/oppo/A37
 
 FORCE_32_BIT := true
