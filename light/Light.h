@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The LineageOS Project
+ * Copyright (C) 2018-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #ifndef ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H
 #define ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H
 
 #include <android/hardware/light/2.0/ILight.h>
-#include <hardware/lights.h>
 #include <hidl/Status.h>
-#include <map>
+
+#include <fstream>
 #include <mutex>
+#include <unordered_map>
 
 namespace android {
 namespace hardware {
@@ -28,23 +30,16 @@ namespace light {
 namespace V2_0 {
 namespace implementation {
 
-using ::android::hardware::Return;
-using ::android::hardware::Void;
-using ::android::hardware::hidl_vec;
-using ::android::hardware::light::V2_0::ILight;
-using ::android::hardware::light::V2_0::LightState;
-using ::android::hardware::light::V2_0::Status;
-using ::android::hardware::light::V2_0::Type;
+struct Light : public ILight {
+    Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight);
 
-class Light : public ILight {
-   public:
-    Light();
+  private:
+    void setLcdBacklight(const LightState& state);
 
-    Return<Status> setLight(Type type, const LightState& state) override;
-    Return<void> getSupportedTypes(getSupportedTypes_cb _hidl_cb) override;
+    std::pair<std::ofstream, uint32_t> mLcdBacklight;
 
-   private:
-    std::mutex globalLock;
+    std::unordered_map<Type, std::function<void(const LightState&)>> mLights;
+    std::mutex mLock;
 };
 
 }  // namespace implementation

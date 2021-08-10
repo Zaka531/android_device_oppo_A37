@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The LineageOS Project
+ * Copyright (C) 2018-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,51 +14,59 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.light@2.0-service.A37"
+#define LOG_TAG "android.hardware.light@2.0-service.msm8916"
 
-/* dev-harsh1998: set page size to 32Kb for our hal */
-#include <hwbinder/ProcessState.h>
-#include <cutils/properties.h>
-
+#include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
+#include <utils/Errors.h>
 
 #include "Light.h"
 
+// libhwbinder:
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 
+// Generated HIDL files
 using android::hardware::light::V2_0::ILight;
 using android::hardware::light::V2_0::implementation::Light;
 
-using android::OK;
-using android::sp;
-using android::status_t;
-
-#define DEFAULT_LGTHAL_HW_BINDER_SIZE_KB 32
-size_t getHWBinderMmapSize() {
-    size_t value = 0;
-    value = property_get_int32("persist.vendor.A37.lighthal.hw.binder.size", DEFAULT_LGTHAL_HW_BINDER_SIZE_KB);
-    if (!value) value = DEFAULT_LGTHAL_HW_BINDER_SIZE_KB; // deafult to 1 page of 32 Kb
-     return 1024 * value;
-}
+const static std::string kLcdBacklightPath = "/sys/class/leds/lcd-backlight/brightness";
+const static std::string kLcdMaxBacklightPath = "/sys/class/leds/lcd-backlight/max_brightness";
 
 int main() {
-    /* default to 32Kb */
-    android::hardware::ProcessState::initWithMmapSize(getHWBinderMmapSize());
-    android::sp<ILight> service = new Light();
+    uint32_t lcdMaxBrightness = 255;
+
+    std::ofstream lcdBacklight(kLcdBacklightPath);
+    if (!lcdBacklight) {
+        LOG(ERROR) << "Failed to open " << kLcdBacklightPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    }
+
+    std::ifstream lcdMaxBacklight(kLcdMaxBacklightPath);
+    if (!lcdMaxBacklight) {
+        LOG(ERROR) << "Failed to open " << kLcdMaxBacklightPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    } else {
+        lcdMaxBacklight >> lcdMaxBrightness;
+    }
+
+    android::sp<ILight> service = new Light(
+            {std::move(lcdBacklight), lcdMaxBrightness});
 
     configureRpcThreadpool(1, true);
 
-    status_t status = service->registerAsService();
-    if (status != OK) {
-        ALOGE("Cannot register Light HAL service.");
+    android::status_t status = service->registerAsService();
+
+    if (status != android::OK) {
+        LOG(ERROR) << "Cannot register Light HAL service";
         return 1;
     }
 
-    ALOGI("Light HAL service ready.");
-
+    LOG(INFO) << "Light HAL Ready.";
     joinRpcThreadpool();
-
-    ALOGI("Light HAL service failed to join thread pool.");
+    // Under normal cases, execution will not reach this line.
+    LOG(ERROR) << "Light HAL failed to join thread pool.";
     return 1;
 }

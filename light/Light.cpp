@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The LineageOS Project
+ * Copyright (C) 2018-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-//Author := dev_harsh1998
- 
-#define LOG_TAG "LightService-A37"
-#include <log/log.h>
+
+#define LOG_TAG "LightService"
+
 #include "Light.h"
-#include <fstream>
+
+#include <android-base/logging.h>
+
+namespace {
+using android::hardware::light::V2_0::LightState;
+
+static constexpr int DEFAULT_MAX_BRIGHTNESS = 255;
+
+}  // anonymous namespace
 
 namespace android {
 namespace hardware {
@@ -27,63 +33,26 @@ namespace light {
 namespace V2_0 {
 namespace implementation {
 
-#define LEDS            "/sys/class/leds/"
-#define LCD_LED         LEDS "lcd-backlight/"
-#define BRIGHTNESS      "brightness"
+Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight)
+    : mLcdBacklight(std::move(lcd_backlight)) {
+    auto backlightFn(std::bind(&Light::setLcdBacklight, this, std::placeholders::_1));
+    mLights.emplace(std::make_pair(Type::BACKLIGHT, backlightFn));
+}
 
-/*
- * Write value to path and close file.
- */
-static void set(std::string path, std::string value) {
-    std::ofstream file(path);
+void Light::setLcdBacklight(const LightState& state) {
+    std::lock_guard<std::mutex> lock(mLock);
 
-    if (!file.is_open()) {
-        ALOGE("failed to write %s to %s", value.c_str(), path.c_str());
-        return;
+    uint32_t brightness = rgbToBrightness(state);
+
+    // If max panel brightness is not the default (255),
+    // apply linear scaling across the accepted range.
+    if (mLcdBacklight.second != DEFAULT_MAX_BRIGHTNESS) {
+        int old_brightness = brightness;
+        brightness = brightness * mLcdBacklight.second / DEFAULT_MAX_BRIGHTNESS;
+        LOG(VERBOSE) << "scaling brightness " << old_brightness << " => " << brightness;
     }
 
-    file << value;
-}
-
-static void set(std::string path, int value) {
-    set(path, std::to_string(value));
-}
-
-static void handleBacklight(const LightState& state) {
-    uint32_t brightness = state.color & 0xFF;
-    set(LCD_LED BRIGHTNESS, brightness);
-}
-
-static std::map<Type, std::function<void(const LightState&)>> lights = {
-    {Type::BACKLIGHT, handleBacklight},
-};
-
-Light::Light() {}
-
-Return<Status> Light::setLight(Type type, const LightState& state) {
-    auto it = lights.find(type);
-
-    if (it == lights.end()) {
-        return Status::LIGHT_NOT_SUPPORTED;
-    }
-
-    /*
-     * Lock global mutex until light state is updated.
-    */
-
-    std::lock_guard<std::mutex> lock(globalLock);
-    it->second(state);
-    return Status::SUCCESS;
-}
-
-Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb) {
-    std::vector<Type> types;
-
-    for (auto const& light : lights) types.push_back(light.first);
-
-    _hidl_cb(types);
-
-    return Void();
+    mLcdBacklight.first << brightness << std::endl;
 }
 
 }  // namespace implementation
