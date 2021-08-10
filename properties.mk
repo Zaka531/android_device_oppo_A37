@@ -1,95 +1,36 @@
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.audio.sdk.fluencetype=none \
+    ro.vendor.audio.sdk.fluencetype=fluence \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicerec=true \
-    persist.vendor.audio.fluence.speaker=false \
-    vendor.audio.offload_wakelock=false \
-    ro.af.client_heap_size_kbyte=7168 \
-    ro.audio.flinger_standbytime_ms=300
+    persist.vendor.audio.fluence.speaker=false
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.cpp.duplication=false \
     persist.camera.hal.debug.mask=0
 
-# Dalvik heap
+# Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=16m \
-    dalvik.vm.heapgrowthlimit=256m \
+    dalvik.vm.heapstartsize=8m \
+    dalvik.vm.heapgrowthlimit=192m \
     dalvik.vm.heapsize=512m \
     dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=4m \
-    dalvik.vm.heapmaxfree=8m \
-    dalvik.vm.zygotemaxfailedboots=5 \
-    dalvik.vm.foreground-heap-growth-multiplier=2.0 \
-    dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.dex2oat-threads=2
+    dalvik.vm.heapminfree=512k \
+    dalvik.vm.heapmaxfree=8m
 
-# Graphics/Media
+# Factory Reset Protection
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
-    ro.surface_flinger.vsync_event_phase_offset_ns=5000000 \
-    ro.surface_flinger.vsync_sf_event_phase_offset_ns=7500000 \
-    debug.mdpcomp.idletime=600 \
-    persist.hwc.mdpcomp.enable=true \
-    persist.hwc.ptor.enable=true \
-    pm.dexopt.shared=quicken \
-    pm.dexopt.downgrade_after_inactive_days=10 \
-    debug.enable.sglscale=1 \
-    debug.sf.hw=1 \
-    debug.hwui.renderer=opengl \
-    debug.egl.hw=1 \
-    debug.sf.disable_hwc=0 \
-    debug.sf.recomputecrop=0 \
-    debug.sf.disable_backpressure=1 \
-    debug.sf.latch_unsignaled=1 \
-    debug.cpurend.vsync=false \
-    persist.hwc.mdpcomp.enable=true \
-    persist.hwc.ptor.enable=true \
-    debug.sf.gpu_comp_tiling=1 \
-    debug.performance.tuning=1 \
-    video.accelerate.hw=1 \
-    debug.stagefright.ccodec=0 \
-    debug.stagefright.omx_default_rank.sw-audio=1 \
-    debug.stagefright.omx_default_rank=0 \
-    vendor.mediacodec.binder.size=6 \
-    vidc.enc.narrow.searchrange=1
+    ro.frp.pst=/dev/block/bootdevice/by-name/config
 
-# IOP
+# Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.iop.enable_uxe=0 \
-    vendor.iop.enable_prefetch_ofr=0
-
-# Maximum number of services that is allowed to start in the background at the same time
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.max_starting_bg=8
-
-# Memory
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.qti.am.reschedule_service=true \
-    sys.use_fifo_ui=1
-
-# Screen mirroring
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=1
-
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.sdcardfs=true
-
-# Telephony
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=true \
     persist.radio.multisim.config=dsds \
     persist.radio.custom_ecc=1 \
-    persist.radio.ecc_hard_1=112,911,110,122,119,120,000,118 \
+    persist.radio.ecc_hard_1=998 \
     persist.radio.ecc_hard_count=1 \
-    rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
-    ril.subscription.types=NV,RUIM \
-    ro.telephony.default_network=9,1 \
-    persist.data.netmgrd.qos.enable=false
+    rild.libpath=/system/vendor/lib64/libril-qc-qmi-1.so \
+    ro.telephony.default_network=9,1
 
 # VoLTE
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -105,7 +46,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.VT_USE_MDM_TIME=0 \
     persist.volte_enabled_by_hw=1 \
     persist.dbg.volte_avail_ovr=1
-
-# Vulkan
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.graphics.vulkan.disable=true

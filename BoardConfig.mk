@@ -108,7 +108,6 @@ TARGET_LD_SHIM_LIBS += \
 
 # Wi-Fi
 TARGET_PROVIDES_WCNSS_QMI := true
-WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 
 # Proprietary Prebuilt
 -include vendor/oppo/A37/BoardConfigVendor.mk
