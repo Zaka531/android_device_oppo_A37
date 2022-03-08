@@ -80,7 +80,7 @@ BOARD_NO_SECURE_DISCARD := true
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # Shims
-TARGET_LD_SHIM_LIBS := \
+TARGET_LD_SHIM_LIBS += \
     /system/vendor/lib/libmmcamera2_stats_modules.so|libshim_camera.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libcamera_shim.so \
     /system/vendor/lib/hw/camera.vendor.msm8916.so|libshim_camera.so 
