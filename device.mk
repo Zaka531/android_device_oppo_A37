@@ -87,11 +87,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5-service \
     camera.device@1.0-impl
 
-#charger
-PRODUCT_PACKAGES += \
-    chargeonlymode
-include $(LOCAL_PATH)/rootdir/charger/charger.mk
-
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
